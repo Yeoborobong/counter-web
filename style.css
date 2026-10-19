@@ -1,0 +1,161 @@
+/* 카운터 알림 관리자 화면 - 폰 기준으로 만들고 PC에서도 보기 좋게 */
+
+:root {
+  --bg: #f4f4f5;
+  --card: #ffffff;
+  --text: #18181b;
+  --muted: #71717a;
+  --line: #e4e4e7;
+  --accent: #e65100;
+  --accent-text: #ffffff;
+  --error: #c62828;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111113;
+    --card: #1c1c1f;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --line: #2e2e33;
+    --accent: #ff7a1a;
+    --accent-text: #111111;
+    --error: #ff6b6b;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Malgun Gothic", "Noto Sans KR", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+.hidden { display: none !important; }
+
+.screen {
+  min-height: 100vh;
+  padding: 24px 16px;
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+#login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+}
+
+#home .card { margin: 16px auto 0; }
+
+h1 { margin: 0; font-size: 24px; }
+h2 { margin: 0; font-size: 19px; }
+
+.sub {
+  margin: 6px 0 24px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* 아이폰에서 입력할 때 화면이 확대되지 않게 16px */
+input:not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 15px;
+  margin: 4px 0 12px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+button { font: inherit; cursor: pointer; }
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+button:disabled { opacity: 0.6; cursor: default; }
+
+.error {
+  color: var(--error);
+  min-height: 1.3em;
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 420px;
+  margin: 0 auto;
+  font-weight: 600;
+}
+
+.ghost {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
