@@ -8,6 +8,9 @@
   --line: #e4e4e7;
   --accent: #e65100;
   --accent-text: #ffffff;
+  --accent-soft: #fff1e6;
+  --ok: #2e7d32;
+  --ok-soft: #e8f5e9;
   --error: #c62828;
 }
 
@@ -20,6 +23,9 @@
     --line: #2e2e33;
     --accent: #ff7a1a;
     --accent-text: #111111;
+    --accent-soft: #3a2414;
+    --ok: #6fcf75;
+    --ok-soft: #1a2e1c;
     --error: #ff6b6b;
   }
 }
@@ -58,19 +64,26 @@ body {
   justify-content: center;
 }
 
+.wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
 .card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
 }
 
-#home .card { margin: 16px auto 0; }
+#login .card { max-width: 420px; padding: 24px; }
 
 h1 { margin: 0; font-size: 24px; }
-h2 { margin: 0; font-size: 19px; }
+h2 { margin: 0 0 16px; font-size: 18px; }
 
 .sub {
   margin: 6px 0 24px;
@@ -78,19 +91,23 @@ h2 { margin: 0; font-size: 19px; }
   line-height: 1.5;
 }
 
-label {
+.card .sub:last-child { margin-bottom: 0; }
+
+.field-label {
   display: block;
   font-size: 14px;
   color: var(--muted);
-  margin-bottom: 6px;
+  margin: 0 0 6px;
 }
 
 /* 아이폰에서 입력할 때 화면이 확대되지 않게 16px */
-input:not([type="checkbox"]) {
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
   display: block;
   width: 100%;
   margin-bottom: 16px;
   padding: 12px 14px;
+  font: inherit;
   font-size: 16px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -98,7 +115,9 @@ input:not([type="checkbox"]) {
   color: var(--text);
 }
 
-input:focus {
+textarea { resize: vertical; min-height: 88px; line-height: 1.5; }
+
+input:focus, textarea:focus {
   outline: 2px solid var(--accent);
   outline-offset: -1px;
 }
@@ -120,9 +139,44 @@ input:focus {
   accent-color: var(--accent);
 }
 
+/* 받는 매장 고르기 (세 칸 버튼) */
+.seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.seg label { cursor: pointer; }
+
+.seg input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.seg span {
+  display: block;
+  text-align: center;
+  padding: 11px 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--bg);
+}
+
+.seg input:checked + span {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.seg input:focus-visible + span { outline: 2px solid var(--accent); }
+
 button { font: inherit; cursor: pointer; }
 
-button[type="submit"] {
+.primary {
   width: 100%;
   padding: 14px;
   font-size: 17px;
@@ -142,12 +196,19 @@ button:disabled { opacity: 0.6; cursor: default; }
   font-size: 14px;
 }
 
+.note {
+  min-height: 1.3em;
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.note.bad { color: var(--error); }
+
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 420px;
-  margin: 0 auto;
   font-weight: 600;
 }
 
@@ -157,5 +218,58 @@ button:disabled { opacity: 0.6; cursor: default; }
   color: var(--text);
   padding: 8px 14px;
   border-radius: 999px;
+  font-size: 14px;
+}
+
+/* 보낸 메시지 목록 */
+.msg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.msg {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.msg-top, .msg-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.store { font-size: 13px; font-weight: 700; color: var(--muted); }
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge.pending { background: var(--accent-soft); color: var(--accent); }
+.badge.confirmed { background: var(--ok-soft); color: var(--ok); }
+
+.msg-text {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.meta { font-size: 13px; color: var(--muted); }
+
+.link {
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--error);
   font-size: 14px;
 }

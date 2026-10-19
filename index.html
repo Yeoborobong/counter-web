@@ -17,11 +17,11 @@
       <h1>카운터 알림</h1>
       <p class="sub">관리자 로그인</p>
 
-      <label for="loginId">아이디</label>
+      <label class="field-label" for="loginId">아이디</label>
       <input id="loginId" name="username" autocomplete="username"
              placeholder="사장님 또는 매니저" required>
 
-      <label for="loginPw">비밀번호</label>
+      <label class="field-label" for="loginPw">비밀번호</label>
       <input id="loginPw" name="password" type="password"
              autocomplete="current-password" required>
 
@@ -31,20 +31,45 @@
       </label>
 
       <p id="loginError" class="error" role="alert"></p>
-      <button id="loginBtn" type="submit">로그인</button>
+      <button id="loginBtn" class="primary" type="submit">로그인</button>
     </form>
   </main>
 
-  <!-- 로그인 후 화면 (6단계에서 메시지 보내기가 들어감) -->
+  <!-- 로그인 후 화면 -->
   <main id="home" class="screen hidden">
-    <header class="topbar">
-      <span id="whoami"></span>
-      <button id="logoutBtn" class="ghost" type="button">로그아웃</button>
-    </header>
-    <section class="card">
-      <h2>로그인 완료</h2>
-      <p class="sub">메시지 보내기 화면은 다음 단계에서 이 자리에 들어갑니다.</p>
-    </section>
+    <div class="wrap">
+      <header class="topbar">
+        <span id="whoami"></span>
+        <button id="logoutBtn" class="ghost" type="button">로그아웃</button>
+      </header>
+
+      <!-- 메시지 보내기 -->
+      <section class="card">
+        <h2>메시지 보내기</h2>
+        <form id="sendForm">
+          <p class="field-label">받는 매장</p>
+          <div class="seg" role="radiogroup" aria-label="받는 매장">
+            <label><input type="radio" name="target" value="creed" checked><span>크리드PC</span></label>
+            <label><input type="radio" name="target" value="fang"><span>FangPC</span></label>
+            <label><input type="radio" name="target" value="both"><span>둘 다</span></label>
+          </div>
+
+          <label class="field-label" for="msgText">내용</label>
+          <textarea id="msgText" rows="3" maxlength="200"
+                    placeholder="예) 화장실 휴지 채워주세요" required></textarea>
+
+          <p id="sendNote" class="note" role="status"></p>
+          <button id="sendBtn" class="primary" type="submit">보내기</button>
+        </form>
+      </section>
+
+      <!-- 보낸 메시지 목록 (실시간) -->
+      <section class="card">
+        <h2>보낸 메시지</h2>
+        <p id="emptyList" class="sub">아직 보낸 메시지가 없습니다.</p>
+        <ul id="msgList" class="msg-list"></ul>
+      </section>
+    </div>
   </main>
 
   <script type="module" src="app.js"></script>
